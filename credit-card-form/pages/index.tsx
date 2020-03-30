@@ -1,13 +1,13 @@
 import React from 'react'
-import Form from '../components/Form'
 
-const Home = () => {
+const Index = () => {
   return (
-    <>
-      <h1>This is Credit Card Form</h1>
-      <Form />
-    </>
+    <div className='h-screen flex items-center justify-center'>
+      <div>
+        Form!!!!!!!!!!!
+      </div>
+    </div>
   )
 }
 
-export default Home
+export default Index
