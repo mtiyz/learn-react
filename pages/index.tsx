@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+
+import { RootState } from '../modules/rootState'
 
 import { Date } from '../components/Calendar/Date'
 
 const Index = () => {
+  const samples = useSelector((state: RootState) => state.sample)
   const [month, setMonth] = useState(1)
 
   const list = []
@@ -15,7 +19,7 @@ const Index = () => {
 
   return (
     <div className='h-screen'>
-      <p>month: {month}</p>
+      <p>month: {samples.value}</p>
       <button onClick={() => setMonth(month => month + 1)}>+</button>
       <button onClick={() => setMonth(month => month - 1)}>-</button>
       <Date day={month} />
