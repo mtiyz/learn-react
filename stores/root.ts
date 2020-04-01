@@ -1,10 +1,20 @@
 import {
   configureStore,
+  combineReducers,
   getDefaultMiddleware,
   EnhancedStore
 } from '@reduxjs/toolkit'
-import { rootReducer } from './modules/rootState'
 import logger from 'redux-logger'
+
+import dateReducer, { DateTypes } from './date'
+
+export interface stateTypes {
+  date: DateTypes
+}
+
+const reducer = combineReducers({
+  date: dateReducer
+})
 
 export const setupStore = (): EnhancedStore => {
   const middlewares = [...getDefaultMiddleware()]
@@ -15,7 +25,7 @@ export const setupStore = (): EnhancedStore => {
   }
 
   return configureStore({
-    reducer: rootReducer,
+    reducer: reducer,
     middleware: middlewares,
     devTools: true
   })

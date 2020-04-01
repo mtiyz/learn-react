@@ -1,28 +1,24 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { RootState } from '../modules/rootState'
-
-import { Date } from '../components/Calendar/Date'
+import { stateTypes } from '../stores/root'
+import { incrementMonth, decrementMonth, incrementYear, decrementYear } from '../stores/date'
 
 const Index = () => {
-  const samples = useSelector((state: RootState) => state.sample)
-  const [month, setMonth] = useState(1)
+  const dispatch = useDispatch()
 
-  const list = []
-
-  const monthDate = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-
-  for (let i = 1; i <= monthDate[month]; i += 1) {
-    list.push(<li>{i}</li>)
-  }
+  const date = useSelector((state: stateTypes) => state.date)
 
   return (
     <div className='h-screen'>
-      <p>month: {samples.value}</p>
-      <button onClick={() => setMonth(month => month + 1)}>+</button>
-      <button onClick={() => setMonth(month => month - 1)}>-</button>
-      <Date day={month} />
+      <p>year: {(date.month / 12) + 1900}</p>
+      <p>month: {(date.month % 12) + 1}</p>
+      <p>Change month:</p>
+      <button onClick={() => dispatch(incrementMonth())}>+</button><br />
+      <button onClick={() => dispatch(decrementMonth())}>-</button>
+      <p>Change year:</p>
+      <button onClick={() => dispatch(incrementYear())}>+</button><br />
+      <button onClick={() => dispatch(decrementYear())}>-</button>
     </div>
   )
 }
