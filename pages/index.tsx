@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Head from 'next/head'
 
 import { stateTypes } from '../stores/root'
 import { incrementMonth, decrementMonth, incrementYear, decrementYear } from '../stores/date'
@@ -11,6 +12,9 @@ const Index = () => {
 
   return (
     <div className='h-screen'>
+      <Head>
+        <title>Learn React</title>
+      </Head>
       <p>year: {(date.month / 12) + 1900}</p>
       <p>month: {(date.month % 12) + 1}</p>
       <p>Change month:</p>
