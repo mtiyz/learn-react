@@ -15,7 +15,7 @@ const Index = () => {
       <Head>
         <title>Learn React</title>
       </Head>
-      <p>year: {(date.month / 12) + 1900}</p>
+      <p>year: {Math.floor((date.month / 12) + 1900)}</p>
       <p>month: {(date.month % 12) + 1}</p>
       <p>Change month:</p>
       <button onClick={() => dispatch(incrementMonth())}>+</button><br />
