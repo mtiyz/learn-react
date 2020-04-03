@@ -4,7 +4,7 @@ import styled from '@emotion/styled'
 import Head from 'next/head'
 
 import { stateTypes } from '../stores/root'
-import { incrementMonth, decrementMonth } from '../stores/date'
+import { nextMonth, prevMonth } from '../stores/date'
 
 const Index = () => {
   const dispatch = useDispatch()
@@ -27,96 +27,68 @@ const Index = () => {
     day: number
   }
 
-  const calenderArray:calendarObj[] = []
+  const calendarArray: calendarObj[] = []
 
   const firstDate = checkDate(year, month, 1)
   if (firstDate !== 'Sunday') {
-    calenderArray.push({
-      month: month - 1,
-      day: monthDays[month - 2] - 5
-    })
-    if (firstDate !== 'Monday') {
-      calenderArray.push({
-        month: month - 1,
-        day: monthDays[month - 2] - 4
-      })
-      if (firstDate !== 'Tuesday') {
-        calenderArray.push({
-          month: month - 1,
-          day: monthDays[month - 2] - 3
-        })
-        if (firstDate !== 'Wednesday') {
-          calenderArray.push({
-            month: month - 1,
-            day: monthDays[month - 2] - 2
-          })
-          if (firstDate !== 'Thursday') {
-            calenderArray.push({
-              month: month - 1,
-              day: monthDays[month - 2] - 1
-            })
-            if (firstDate !== 'Friday') {
-              calenderArray.push({
-                month: month - 1,
-                day: monthDays[month - 2]
-              })
-            }
-          }
-        }
+    const decrementMonth = () => {
+      if (month === 1) {
+        return 12
+      } else {
+        return month - 1
       }
+    }
+    let firstDaysLoop = 0
+    if (firstDate === 'Monday') firstDaysLoop = 0
+    if (firstDate === 'Tuesday') firstDaysLoop = 1
+    if (firstDate === 'Wednesday') firstDaysLoop = 2
+    if (firstDate === 'Thursday') firstDaysLoop = 3
+    if (firstDate === 'Friday') firstDaysLoop = 4
+    if (firstDate === 'Saturday') firstDaysLoop = 5
+    for (let i = firstDaysLoop; i >= 0; i -= 1) {
+      calendarArray.push({
+        month: decrementMonth(),
+        day: monthDays[decrementMonth() - 1] - i
+      })
     }
   }
   for (let i = 1; i <= monthDays[month - 1]; i++) {
-    calenderArray.push({
+    calendarArray.push({
       month: month,
       day: i
     })
   }
-  const lastDate = checkDate(year, month, monthDays[month - 1])
-  if (lastDate !== 'Saturday') {
-    calenderArray.push({
-      month: month - 1,
-      day: 1
-    })
-    if (lastDate !== 'Friday') {
-      calenderArray.push({
-        month: month - 1,
-        day: 2
-      })
-      if (lastDate !== 'Thursday') {
-        calenderArray.push({
-          month: month - 1,
-          day: 3
-        })
-        if (lastDate !== 'Wednesday') {
-          calenderArray.push({
-            month: month - 1,
-            day: 4
-          })
-          if (lastDate !== 'Tuesday') {
-            calenderArray.push({
-              month: month - 1,
-              day: 5
-            })
-            if (lastDate !== 'Monday') {
-              calenderArray.push({
-                month: month - 1,
-                day: 6
-              })
-            }
-          }
-        }
+  if (calendarArray.length <= 42) {
+    const incrementMonth = () => {
+      if (month === 12) {
+        return 1
+      } else {
+        return month + 1
       }
+    }
+    for (let i = 1; calendarArray.length < 42; i++) {
+      calendarArray.push({
+        month: incrementMonth(),
+        day: i
+      })
     }
   }
 
   const CalendarGrid = styled.div`
+    display: grid;
+    grid-template-rows: calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6);
+    grid-template-columns: calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7);
   `
 
-  const calendar = calenderArray.map((out, index) =>
-    <div key={index}>
+  const CalendarGridItem = styled.div`
+    height: calc(calc(100vh - 1.4vw) / 6);
+    width: calc(100% / 7);
+  `
+
+  const calendar = calendarArray.map((out, index) =>
+    <CalendarGridItem key={index}>
       <p>{out.day}</p>
-    </div>
+    </CalendarGridItem>
   )
 
   return (
@@ -124,10 +96,11 @@ const Index = () => {
       <Head>
         <title>Learn React</title>
       </Head>
-      {year}年{month}月
-      <button onClick={() => dispatch(decrementMonth())}>{'<'}</button>
-      <button onClick={() => dispatch(incrementMonth())}>{'>'}</button>
-      <br />
+      <header>
+        {year}年{month}月
+        <button onClick={() => dispatch(prevMonth())}>{'<'}</button>
+        <button onClick={() => dispatch(nextMonth())}>{'>'}</button>
+      </header>
       <CalendarGrid>
         {calendar}
       </CalendarGrid>

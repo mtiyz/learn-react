@@ -12,16 +12,16 @@ const DateModule = createSlice({
   name: 'date',
   initialState: dateInitialState,
   reducers: {
-    incrementMonth: (state): DateTypes => {
+    nextMonth: (state): DateTypes => {
       return { month: state.month + 1 }
     },
-    decrementMonth: (state): DateTypes => {
+    prevMonth: (state): DateTypes => {
       return { month: state.month - 1 }
     },
-    incrementYear: (state): DateTypes => {
+    nextYear: (state): DateTypes => {
       return { month: state.month + 12 }
     },
-    decrementYear: (state): DateTypes => {
+    prevYear: (state): DateTypes => {
       return { month: state.month - 12 }
     }
   }
@@ -31,4 +31,4 @@ const DateModule = createSlice({
 export default DateModule.reducer
 
 // Action Creatorsをエクスポートする
-export const { incrementMonth, decrementMonth, incrementYear, decrementYear } = DateModule.actions
+export const { nextMonth, prevMonth, nextYear, prevYear } = DateModule.actions

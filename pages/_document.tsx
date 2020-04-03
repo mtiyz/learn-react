@@ -1,6 +1,10 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 
+const globalStyle = `
+  font-size: 1.4vw
+`
+
 export default class MyDocument extends Document {
   render () {
     return (
@@ -10,6 +14,7 @@ export default class MyDocument extends Document {
           <meta charSet='utf-8' />
 
           <link rel='stylesheet' href='https://unpkg.com/ress/dist/ress.min.css' />
+          <style>{globalStyle}</style>
         </Head>
         <body>
           <Main />
