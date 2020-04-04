@@ -77,7 +77,7 @@ const Calendar = () => {
   `
 
   const CalendarGridItem = styled.div`
-    height: calc(calc(100vh - 1.4vw) / 6);
+    height: calc(calc(100vh - 80px) / 6);
     width: calc(100% / 7);
   `
 

@@ -2,7 +2,6 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 
 const globalStyle = `
-  font-size: 1.4vw
 `
 
 export default class MyDocument extends Document {
