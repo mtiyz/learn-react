@@ -52,7 +52,7 @@ const Index = () => {
       })
     }
   }
-  for (let i = 1; i <= monthDays[nowMonth - 1]; i++) {
+  for (let i = 1; i <= monthDays[nowMonth - 1]; i += 1) {
     calendarArray.push({
       month: nowMonth,
       day: i
@@ -66,7 +66,7 @@ const Index = () => {
         return month + 1
       }
     }
-    for (let i = 1; calendarArray.length < 42; i++) {
+    for (let i = 1; calendarArray.length < 42; i += 1) {
       calendarArray.push({
         month: incrementMonth(nowMonth),
         day: i
