@@ -4,6 +4,8 @@ import styled from '@emotion/styled'
 
 import { stateTypes } from '../../stores/root'
 
+import DateElement from './Date'
+
 const Calendar = () => {
   const date = useSelector((state: stateTypes) => state.date)
 
@@ -74,11 +76,8 @@ const Calendar = () => {
     display: grid;
     grid-template-rows: calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6);
     grid-template-columns: calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7) calc(100% / 7);
-  `
-
-  const CalendarGridItem = styled.div`
-    height: calc(calc(100vh - 80px) / 6);
-    width: calc(100% / 7);
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
   `
 
   const checkDayGray = (month: number): string | undefined => {
@@ -88,9 +87,9 @@ const Calendar = () => {
   }
 
   const calendar = calendarArray.map((out, index) =>
-    <CalendarGridItem className={checkDayGray(out.month)} key={index}>
-      <p>{out.day}</p>
-    </CalendarGridItem>
+    <div className={checkDayGray(out.month)} key={index}>
+      <DateElement day={out.day} />
+    </div>
   )
 
   return (

@@ -6,15 +6,18 @@ type PropTypes = {
 }
 
 export const Date = (props: PropTypes) => {
+  const Element = styled.div`
+    height: calc(calc(100vh - 81px) / 6);
+    width: calc(100vw / 7);
+    border-bottom: 1px solid #bbb;
+    border-right: 1px solid #bbb;
+  `
+
   return (
-    <Main>
-      <p>月{props.day}日</p>
-    </Main>
+    <Element>
+      <p>{props.day}日</p>
+    </Element>
   )
 }
 
-const Main = styled.div`
-  width: calc(100vw / 7);
-  height: calc(100vh / 3);
-  border: 2px solid #333;
-`
+export default Date
