@@ -1,3 +1,3 @@
-Reactのおべんきよです
-GoogleCalendar
-を作る
+Reactのおべんきょんです
+
+GoogleCalendarを作る
