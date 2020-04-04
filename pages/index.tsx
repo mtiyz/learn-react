@@ -11,8 +11,8 @@ const Index = () => {
 
   const date = useSelector((state: stateTypes) => state.date)
 
-  const year = Math.floor((date.month / 12) + 1900)
-  const month = (date.month % 12) + 1
+  const nowYear = Math.floor((date.month / 12) + 1900)
+  const nowMonth = (date.month % 12) + 1
 
   const monthDays = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
@@ -29,9 +29,9 @@ const Index = () => {
 
   const calendarArray: calendarObj[] = []
 
-  const firstDate = checkDate(year, month, 1)
+  const firstDate = checkDate(nowYear, nowMonth, 1)
   if (firstDate !== 'Sunday') {
-    const decrementMonth = () => {
+    const decrementMonth = (month: number) => {
       if (month === 1) {
         return 12
       } else {
@@ -47,19 +47,19 @@ const Index = () => {
     if (firstDate === 'Saturday') firstDaysLoop = 5
     for (let i = firstDaysLoop; i >= 0; i -= 1) {
       calendarArray.push({
-        month: decrementMonth(),
-        day: monthDays[decrementMonth() - 1] - i
+        month: decrementMonth(nowMonth),
+        day: monthDays[decrementMonth(nowMonth) - 1] - i
       })
     }
   }
-  for (let i = 1; i <= monthDays[month - 1]; i++) {
+  for (let i = 1; i <= monthDays[nowMonth - 1]; i++) {
     calendarArray.push({
-      month: month,
+      month: nowMonth,
       day: i
     })
   }
   if (calendarArray.length <= 42) {
-    const incrementMonth = () => {
+    const incrementMonth = (month: number) => {
       if (month === 12) {
         return 1
       } else {
@@ -68,7 +68,7 @@ const Index = () => {
     }
     for (let i = 1; calendarArray.length < 42; i++) {
       calendarArray.push({
-        month: incrementMonth(),
+        month: incrementMonth(nowMonth),
         day: i
       })
     }
@@ -85,8 +85,14 @@ const Index = () => {
     width: calc(100% / 7);
   `
 
+  const checkDayGray = (month: number): string | undefined => {
+    if (month !== nowMonth) {
+      return 'text-gray-600'
+    }
+  }
+
   const calendar = calendarArray.map((out, index) =>
-    <CalendarGridItem key={index}>
+    <CalendarGridItem className={checkDayGray(out.month)} key={index}>
       <p>{out.day}</p>
     </CalendarGridItem>
   )
@@ -97,7 +103,7 @@ const Index = () => {
         <title>Learn React</title>
       </Head>
       <header>
-        {year}年{month}月
+        {nowYear}年{nowMonth}月
         <button onClick={() => dispatch(prevMonth())}>{'<'}</button>
         <button onClick={() => dispatch(nextMonth())}>{'>'}</button>
       </header>
