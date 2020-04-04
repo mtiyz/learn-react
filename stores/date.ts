@@ -27,8 +27,6 @@ const DateModule = createSlice({
   }
 })
 
-// Reducerをエクスポートする
 export default DateModule.reducer
 
-// Action Creatorsをエクスポートする
 export const { nextMonth, prevMonth, nextYear, prevYear } = DateModule.actions
